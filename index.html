@@ -100,6 +100,29 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 </head>
 <body>
 	<audio id="heartbeat" src="heartbeat.mp3" autoplay loop></audio>
+	<script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var audio = document.getElementById('heartbeat');
+      if (audio) {
+        var playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(function(error) {
+            var btn = document.createElement('button');
+            btn.textContent = "Click to enable sound";
+            btn.style.position = "fixed";
+            btn.style.top = "20px";
+            btn.style.left = "20px";
+            btn.style.zIndex = 9999;
+            btn.onclick = function() {
+              audio.play();
+              btn.remove();
+            };
+            document.body.appendChild(btn);
+          });
+        }
+      }
+    });
+  </script>
 	<div id="init-screen">
 		<div id="init-no-js"><noscript>JavaScript must be enabled to play.</noscript></div>
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
